@@ -1,6 +1,7 @@
 //import React and connect
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 //import action
 import { fetchPosts } from './redux/action/action';
 
@@ -56,6 +57,10 @@ export const ListResource = (props) => {
         } */}
           {/* {pageNumbers.map((page,index) => <div className="pageBtn" key={index} onClick={() => pageHandler(page)}>{page}</div>)} */}
         <button className='btn' onClick={() => setOffset(offset + 5)}>Next</button>
+      </div>
+
+      <div>
+        <Link to="/add"> Add New Resource</Link>
       </div>
     </div>
   )

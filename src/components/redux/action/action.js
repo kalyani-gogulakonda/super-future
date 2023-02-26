@@ -33,11 +33,6 @@ import { FETCH_POSTS_ERROR } from './actionTypes';
       axios.get(`https://jsonplaceholder.typicode.com/posts?_start=${offset}&_limit=${limit}`)
         .then(response => {
           const posts = response.data;
-          // let pageNumbers = []
-          // for (let i = 1; i < Math.ceil(posts.length / 5) + 1; i++) {
-          //     pageNumbers.push(i);
-          // }
-          // console.log(posts.length, "pgNO")
           dispatch(fetchPostsSuccess(posts));
         })
         .catch(error => {
@@ -60,9 +55,12 @@ import { FETCH_POSTS_ERROR } from './actionTypes';
         .then(res => res.json())
         .then(response => {
           dispatch({ type: 'CREATE_POST_SUCCESS', payload: response });
+          alert("Sucessfully Created New Post")
         })
         .catch(error => {
           dispatch({ type: 'CREATE_POST_ERROR', payload: error });
         });
+
+        console.log(JSON.stringify(post), "body")
     };
   };

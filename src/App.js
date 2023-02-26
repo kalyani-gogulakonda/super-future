@@ -1,15 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
 import ListResource from './components/listingAllResources';
-// import { BrowserRouter as Router, Route } from 'react-router-dom';
+import  CreatePost  from './components/creatingResources';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+
+
 
 function App() {
   return (
     <div className="App">
-      {/* <Router>
-        <Route path="/" component={ListResource} />
-      </Router> */}
-      <ListResource />
+      <Router>
+        <ListResource />
+       <CreatePost />
+        <Routes>
+          <Route path="/add" exact component={CreatePost } />
+        </Routes>
+      </Router>
+      {/* <ListResource /> */}
     </div>
   );
 }
