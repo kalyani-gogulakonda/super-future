@@ -1,46 +1,85 @@
+//import React and connect
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getListResource } from './redux/actions/action';
+//import action
+import { fetchPosts } from './redux/action/action';
 
-const ListResource = ({ listResource, getListResource }) => {
+//create component
+export const ListResource = (props) => {
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const[perpage, setPerpage] = useState([]);
 
-    const [page, setPage] = useState(1);
-    const limit = 5;
   useEffect(() => {
-    getListResource(`https://jsonplaceholder.typicode.com/posts?_start=${(page - 1) * limit}&_limit=${limit}`);
-  }, [getListResource]);
+    props.fetchPosts(offset, limit);
+  }, [offset, limit]);
 
-  const handleNextPage = () => {
-    setPage(page + 1);
-  };
+  const { loading, error, posts, totalPages } = props;
+  console.log(totalPages,"totalPages")
 
-  const handlePrevPage = () => {
-    setPage(page - 1);
-  };
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>
+  }
+
+  // let pageNumbers = []
+  // for (let i = 1; i < Math.ceil(posts.length / 5) + 1; i++) {
+  //     pageNumbers.push(i);
+  // }
+  // console.log(posts.length, "pgNO")
+
+  // const pageHandler = (pageNumber) => {
+  //   setPerpage(posts.slice((pageNumber*5)-5,pageNumber*5)) 
+  // }
 
   return (
-    <div className='users'>
-      {listResource.map(resource => (
-        <div className="userCard" key={resource.id}>
-            <h3>{resource.id}. {resource.title}</h3>
-            <p>{resource.body}</p>
-        </div>
-      ))}
-       {/* <div> */}
-       <button onClick={handlePrevPage}>Prev Page</button>
-      <button onClick={handleNextPage}>Next Page</button>
-       {/* </div> */}
+    <div>
+      <div className="users" style={{ backgroundColor: '#f5ecec' }}>
+        {
+          posts.map(post => (
+            <div key={post.id} className="userCard" >
+              <h3>{post.id}. {post.title}</h3>
+              <p>{post.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div className='btnCard'>
+        <button className='btn' onClick={() => setOffset(offset - 5)}>Previous</button>
+        {/* {
+          Array.from(Array(totalPages).keys()).map(pageNumber => (
+            <button className={`btn ${offset / limit === pageNumber ? 'selected' : ''}`} key={pageNumber} onClick={() => setOffset(pageNumber * 5)}>{pageNumber + 1}</button>
+          ))
+        } */}
+          {/* {pageNumbers.map((page,index) => <div className="pageBtn" key={index} onClick={() => pageHandler(page)}>{page}</div>)} */}
+        <button className='btn' onClick={() => setOffset(offset + 5)}>Next</button>
+      </div>
     </div>
+  )
+}
 
-  );
-};
 
-const mapStateToProps = state => ({
-  listResource: state.listResource
-});
 
-const mapDispatchToProps = dispatch => ({
-  getListResource: url => dispatch(getListResource(url))
-});
+//mapStateToProps
+const mapStateToProps = (state) => {
+  return {
+    posts: state.posts,
+    loading: state.loading,
+    error: state.error,
+    totalPages: state.totalPages
+  }
+}
 
+
+//mapDispatchToProps
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchPosts: (offset, limit) => dispatch(fetchPosts(offset, limit))
+  }
+}
+
+//connect and export
 export default connect(mapStateToProps, mapDispatchToProps)(ListResource);
