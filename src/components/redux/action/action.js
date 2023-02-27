@@ -64,3 +64,44 @@ import { FETCH_POSTS_ERROR } from './actionTypes';
         console.log(JSON.stringify(post), "body")
     };
   };
+
+  //action 
+export const updatePost = (postId, post) => {
+  return (dispatch) => {
+    dispatch({ type: 'UPDATE_POST_START' });
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(post)
+    })
+      .then(res => res.json())
+      .then(response => {
+        dispatch({ type: 'UPDATE_POST_SUCCESS', payload: response });
+        dispatch(fetchPosts(response.start, response.limit));
+      })
+      .catch(error => {
+        dispatch({ type: 'UPDATE_POST_ERROR', payload: error });
+      });
+      console.log(JSON.stringify(post), "updatepost")
+  };
+};
+
+//action 
+export const deletePost = (postId) => {
+  return (dispatch) => {
+    dispatch({ type: 'DELETE_POST_START' });
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
+      method: 'DELETE'
+    })
+      .then(res => res.json())
+      .then(response => {
+        dispatch({ type: 'DELETE_POST_SUCCESS', payload: response });
+        dispatch(fetchPosts(response.start, response.limit));
+      })
+      .catch(error => {
+        dispatch({ type: 'DELETE_POST_ERROR', payload: error });
+      });
+  };
+};

@@ -2,9 +2,9 @@ import logo from './logo.svg';
 import './App.css';
 import ListResource from './components/listingAllResources';
 import  CreatePost  from './components/creatingResources';
+import  UpdatePost  from './components/updateResources';
+import DeletePost from './components/deleteResources';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-
-
 
 function App() {
   return (
@@ -12,9 +12,11 @@ function App() {
       <Router>
         <ListResource />
        <CreatePost />
-        <Routes>
+       {/* <UpdatePost /> */}
+       {/* <DeletePost /> */}
+        {/* <Routes>
           <Route path="/add" exact component={CreatePost } />
-        </Routes>
+        </Routes> */}
       </Router>
       {/* <ListResource /> */}
     </div>

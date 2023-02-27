@@ -34,4 +34,10 @@
   border-radius: 5px;
   padding: 5px;
   cursor: pointer;
+  border: 1px solid grey;
+}
+
+.btn:hover{
+  background-color: #e33681;
+  color: white;
 }
