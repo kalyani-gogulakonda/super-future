@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 //import action 
 import { updatePost } from './redux/action/action'; 
 import { fetchPosts } from './redux/action/action';
+import { Link } from 'react-router-dom';
 
 //create component 
 const UpdatePost = (props) => { 
@@ -42,8 +43,11 @@ const UpdatePost = (props) => {
           <label>Body: </label> 
           <input type="text" value={body} onChange={(e) => setBody(e.target.value)} /> 
         </div> 
-        <div> 
+        <div style={{ display: "flex", columnGap: "10px", justifyContent: "center", margin: "20px 0px 20px 0px" }}>
           <input type="submit" value="Update Post"/> 
+          <button className="btn">
+          <Link to="/"> Cancel </Link>
+        </button>
         </div> 
       </form> 
     ) 
