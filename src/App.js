@@ -12,11 +12,14 @@ function App() {
       <Router>
         <ListResource />
         <Routes>
-          <Route path="/edit" exact component={UpdatePost} />
-          <Route path="/add" exact component={CreatePost} />
+          <Route path="/edit" element={<UpdatePost />} 
+          // component={UpdatePost} 
+          />
+          <Route path="/add"  element={<CreatePost />} 
+          // component={CreatePost} 
+          />
         </Routes>
       </Router>
-      {/* <ListResource /> */}
     </div>
   );
 }
