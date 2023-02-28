@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 //import action 
 import { createPost } from './redux/action/action'; 
+import { Link } from 'react-router-dom';
 
 //create component 
 const CreatePost = (props) => { 
@@ -19,7 +20,7 @@ const CreatePost = (props) => {
     props.createPost(post); 
   } 
 
-  const { loading, error } = props; 
+  // const { loading, error } = props; 
 
   // if (loading) { 
   //   return <div>Loading...</div> 
@@ -32,10 +33,6 @@ const CreatePost = (props) => {
   return ( 
     <form onSubmit={handleSubmit}> 
       <h3>Create Post</h3> 
-      {/* <div> 
-        <label>Id: </label> 
-        <input type="text" value={} /> 
-      </div>  */}
       <div> 
         <label>Title: </label> 
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} /> 
@@ -44,8 +41,11 @@ const CreatePost = (props) => {
         <label>Body: </label> 
         <input type="text" value={body} onChange={(e) => setBody(e.target.value)} /> 
       </div> 
-      <div> 
-        <input type="submit" value="Create Post"/> 
+      <div style={{ display: "flex", columnGap: "10px", justifyContent: "center", margin: "20px 0px 20px 0px" }}> 
+        <input className="btn" type="submit" value="Create Post"/> 
+        <button className="btn">
+          <Link to="/"> Cancel </Link>
+        </button>
       </div> 
     </form> 
   ) 
